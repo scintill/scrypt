@@ -90,12 +90,16 @@ exports.Crypto_scrypt = function(passwd, salt, N, r, p, dkLen, callback, maxThre
 
     // using this function to enclose everything needed to create a worker (but also invokable directly for synchronous use)
     function scryptCore() {
-        var XY = [], V = [];
+        var XY, V;
 
         if (typeof B === 'undefined') {
             onmessage = function(event) {
                 var data = event.data;
                 var N = data[0], r = data[1], p = data[2], B = data[3], i = data[4];
+
+                if (!XY) {
+                    alloc(r, N);
+                }
 
                 var Bslice = [];
                 arraycopy32(B, i * 128 * r, Bslice, 0, 128 * r);
@@ -104,8 +108,25 @@ exports.Crypto_scrypt = function(passwd, salt, N, r, p, dkLen, callback, maxThre
                 postMessage([i, Bslice]);
             };
         } else {
+            if (!XY) {
+                alloc(r, N);
+            }
             for(var i = 0; i < p; i++) {
                 smix(B, i * 128 * r, r, N, V, XY);
+            }
+        }
+
+        function alloc(r, N) {
+            try {
+                if (navigator.userAgent.match(/Chrome/)) {
+                    // with Uint8Array, unit tests go almost a second faster in Chrome, but 2x slower in Firefox... ?
+                    XY = new Uint8Array(256 * r);
+                    V = new Uint8Array(128 * r * N);
+                } else {
+                    throw "use standard arrays";
+                }
+            } catch (e) {
+                XY = [], V = [];
             }
         }
 
