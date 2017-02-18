@@ -1,0 +1,22 @@
+{
+  "name": "node-scrypt-js",
+  "description": "Pure javascript implementation of scrypt.",
+  "version": "0.0.1",
+  "main": "scrypt.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cheongwy/node-scrypt-js.git"
+  },
+  "dependencies": {},
+  "readme": "#### Introduction\nnode-scrypt-js is a pure javascript implementation of the scrypt encryption utility.\n\nSee http://www.tarsnap.com/scrypt.html for more details.\n\nIt is based heavily on the Java version\n\nhttps://github.com/wg/scrypt\n\n\n\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/cheongwy/node-scrypt-js/issues"
+  },
+  "_id": "node-scrypt-js@0.0.1",
+  "dist": {
+    "shasum": "11ed49511627a574814ab8ce479c55f5380bdfc1"
+  },
+  "_from": "node-scrypt-js@",
+  "_resolved": "https://registry.npmjs.org/node-scrypt-js/-/node-scrypt-js-0.0.1.tgz"
+}
